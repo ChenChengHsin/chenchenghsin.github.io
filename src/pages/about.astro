@@ -13,7 +13,7 @@ import { site } from '../site.config';
     </p>
     <div class="mt-10 space-y-4 text-fg/60">
       <p>📬 GitHub: <a href={`https://github.com/${site.author.github}`} class="text-accent hover:underline">@{site.author.github}</a></p>
-      <p>📍 {site.author.location}</p>
+      {site.author.location && <p>📍 {site.author.location}</p>}
     </div>
   </div>
 </BaseLayout>

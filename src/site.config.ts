@@ -3,35 +3,34 @@
 
 export const site = {
   // 网站名称（导航栏 logo、页脚、页面标题后缀、SEO）
-  name: '我的博客',
+  name: 'ruijieking',
 
   // 默认页面标题（未指定 title 时的后备值）
-  defaultTitle: '我的博客',
+  defaultTitle: 'ruijieking',
 
   // SEO 站点描述（meta description）
-  description: '写代码、拍照片、记录生活。',
+  description: '分享修課心得、活動紀錄與生活隨筆。Course notes, activities, and essays.',
 
   // ── SEO：分享与链接 ──
   url: 'https://ruijieking.github.io/',            // 站点域名（必须带 https://，SEO/canonical/sitemap 依赖它）
   ogImage: '/og.png',                           // 社交分享预览图（public/og.png，建议 1200×630）
-  ogSiteName: '我的博客',                      // 分享卡片上显示的站点名
+  ogSiteName: 'ruijieking',                      // 分享卡片上显示的站点名
 
   // 作者信息
   author: {
-    name: '你的名字',
-    github: 'your-github-username',
-    location: '你的城市',
+    name: 'ruijieking',
+    github: 'ruijieking',
+    location: '',
   },
 
   // 关于页面的介绍文字
-  about: '这是我的个人博客，用 Astro 构建。写代码、拍照片、记录生活。',
+  about: '這是 ruijieking 的個人網站，分享修課心得、活動紀錄與生活隨筆。',
 
   // 导航栏（href + 显示文字，数组顺序即显示顺序）
   nav: [
-    { href: '/talk', label: '今日说法' },
-    { href: '/blog', label: '文章' },
-    { href: '/archive', label: '归档' },
-    { href: '/photo', label: '照片' },
-    { href: '/about', label: '关于我' },
+    { href: '/', label: '主頁面 / Home' },
+    { href: '/courses', label: '修課心得 / Courses' },
+    { href: '/activities', label: '活動與團體 / Activities & Groups' },
+    { href: '/essays', label: '隨筆 / Essays' },
   ],
 };
