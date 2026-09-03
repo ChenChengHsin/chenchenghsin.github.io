@@ -1,5 +1,16 @@
 # Personal Website Specification
 
+## 0. Website Identity
+
+The canonical website name / brand name is:
+
+`Zn`
+
+Use `Zn` consistently for the visible site brand and global site title.
+
+Do not rename the repository, project directory, routes, or canonical URL
+solely because the site brand is `Zn`.
+
 ## 1. Project Goal
 
 This project is my personal website built with Astro.

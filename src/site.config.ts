@@ -3,10 +3,10 @@
 
 export const site = {
   // 网站名称（导航栏 logo、页脚、页面标题后缀、SEO）
-  name: 'ruijieking',
+  name: 'Zn',
 
   // 默认页面标题（未指定 title 时的后备值）
-  defaultTitle: 'ruijieking',
+  defaultTitle: 'Zn',
 
   // SEO 站点描述（meta description）
   description: '分享修課心得、活動紀錄與生活隨筆。Course notes, activities, and essays.',
@@ -14,7 +14,7 @@ export const site = {
   // ── SEO：分享与链接 ──
   url: 'https://ruijieking.github.io/',            // 站点域名（必须带 https://，SEO/canonical/sitemap 依赖它）
   ogImage: '/og.png',                           // 社交分享预览图（public/og.png，建议 1200×630）
-  ogSiteName: 'ruijieking',                      // 分享卡片上显示的站点名
+  ogSiteName: 'Zn',                              // 分享卡片上显示的站点名
 
   // 作者信息
   author: {
