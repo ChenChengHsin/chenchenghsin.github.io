@@ -1,0 +1,98 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ReadFrostedGlass from '../components/ReadFrostedGlass.astro';
+import { site } from '../site.config';
+import {
+  formatArticleDate,
+  toDateTime,
+  type ArticleSection,
+} from '../utils/articles';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  updated?: Date;
+  tags?: string[];
+  section: ArticleSection;
+}
+
+const { title, description, date, updated, tags, section } = Astro.props;
+const siteUrl = site.url || 'https://example.com';
+---
+
+<BaseLayout
+  title={title}
+  ogType="article"
+  ogDescription={description}
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    datePublished: toDateTime(date),
+    dateModified: updated ? toDateTime(updated) : undefined,
+    articleSection: section.title,
+    author: { '@type': 'Person', name: site.author.name },
+    image: new URL(site.ogImage, siteUrl).href,
+  }}
+>
+  <div class="max-w-3xl mx-auto px-6 pt-24 pb-16">
+    <ReadFrostedGlass>
+      <a
+        href={section.href}
+        class="text-sm text-fg/45 transition-colors hover:text-accent"
+      >
+        ← 返回{section.title}
+      </a>
+
+      <header class="mt-6 pb-8 border-b border-fg/10">
+        <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">
+          {section.eyebrow}
+        </p>
+        <h1 class="text-4xl font-bold text-fg leading-tight">{title}</h1>
+        <p class="mt-4 text-lg leading-relaxed text-fg/55">{description}</p>
+
+        <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <time datetime={toDateTime(date)} class="text-sm text-fg/40 font-mono">
+            {formatArticleDate(date)}
+          </time>
+          {updated && (
+            <span class="text-sm text-fg/35">
+              更新於 <time datetime={toDateTime(updated)}>{formatArticleDate(updated)}</time>
+            </span>
+          )}
+          {tags && tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span class="text-sm text-fg/40">#{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      <div
+        id="article-content"
+        class="mt-8 max-w-none overflow-x-auto prose prose-neutral dark:prose-invert text-lg
+               prose-p:my-5 prose-p:leading-relaxed prose-p:text-fg/85
+               prose-headings:scroll-mt-32 prose-headings:text-fg prose-headings:font-semibold
+               prose-headings:mt-10 prose-headings:mb-5
+               prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
+               prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+               prose-code:text-base prose-code:font-normal prose-code:text-accent
+               prose-code:bg-fg/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+               prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-xl
+               prose-pre:border prose-pre:border-fg/10 prose-pre:bg-fg/5
+               prose-img:my-8 prose-img:max-w-full prose-img:rounded-xl
+               prose-li:my-2 prose-li:leading-relaxed prose-li:text-fg/85
+               prose-blockquote:rounded-r-lg prose-blockquote:border-l-accent prose-blockquote:bg-fg/3
+               prose-hr:my-10 prose-hr:border-fg/10
+               prose-strong:text-fg prose-strong:font-semibold
+               prose-table:border-fg/10"
+      >
+        <slot />
+      </div>
+    </ReadFrostedGlass>
+  </div>
+</BaseLayout>

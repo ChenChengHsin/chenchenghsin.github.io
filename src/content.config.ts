@@ -21,5 +21,29 @@ const talk = defineCollection({
   }),
 });
 
-export const collections = { blog, talk };
+const articleSchema = z.object({
+  title: z.string(),
+  date: z.coerce.date(),
+  description: z.string(),
+  updated: z.coerce.date().optional(),
+  tags: z.array(z.string()).optional(),
+  draft: z.boolean().default(false),
+});
+
+const courses = defineCollection({
+  loader: glob({ base: './src/content/courses', pattern: '**/*.md' }),
+  schema: articleSchema,
+});
+
+const activities = defineCollection({
+  loader: glob({ base: './src/content/activities', pattern: '**/*.md' }),
+  schema: articleSchema,
+});
+
+const essays = defineCollection({
+  loader: glob({ base: './src/content/essays', pattern: '**/*.md' }),
+  schema: articleSchema,
+});
+
+export const collections = { blog, talk, courses, activities, essays };
 

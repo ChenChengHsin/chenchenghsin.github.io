@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import {
+  articleSections,
+  formatArticleDate,
+  isArticleVisible,
+  toDateTime,
+  type ArticleCollectionName,
+} from '../utils/articles';
+
+interface Props {
+  collection: ArticleCollectionName;
+}
+
+const { collection } = Astro.props;
+const section = articleSections[collection];
+const articles = (await getCollection(
+  collection,
+  ({ data }) => isArticleVisible(data),
+)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<div class="max-w-3xl mx-auto px-6 pt-24 pb-16">
+  <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">
+    {section.eyebrow}
+  </p>
+  <h1 class="text-3xl font-bold mb-10">{section.title}</h1>
+
+  {articles.length === 0 ? (
+    <p class="text-fg/50">目前沒有文章。</p>
+  ) : (
+    <div class="flex flex-col gap-7">
+      {articles.map((article) => (
+        <article class="border-b border-fg/10 pb-7">
+          <a
+            href={`${section.href}/${article.id}`}
+            class="group block transition-transform duration-200 hover:-translate-y-0.5"
+          >
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+              <h2 class="text-xl font-semibold text-fg transition-colors group-hover:text-accent">
+                {article.data.title}
+              </h2>
+              <time
+                datetime={toDateTime(article.data.date)}
+                class="shrink-0 text-xs text-fg/40 font-mono"
+              >
+                {formatArticleDate(article.data.date)}
+              </time>
+            </div>
+            <p class="mt-3 text-sm leading-relaxed text-fg/55">
+              {article.data.description}
+            </p>
+          </a>
+        </article>
+      ))}
+    </div>
+  )}
+</div>
