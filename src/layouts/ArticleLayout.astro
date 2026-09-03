@@ -1,7 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import ReadFrostedGlass from '../components/ReadFrostedGlass.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import { site } from '../site.config';
+import type { MarkdownHeading } from 'astro';
 import {
   formatArticleDate,
   toDateTime,
@@ -15,10 +17,13 @@ interface Props {
   updated?: Date;
   tags?: string[];
   section: ArticleSection;
+  headings: MarkdownHeading[];
 }
 
-const { title, description, date, updated, tags, section } = Astro.props;
+const { title, description, date, updated, tags, section, headings } = Astro.props;
 const siteUrl = site.url || 'https://example.com';
+const tocHeadings = headings.filter((heading) => heading.depth >= 1 && heading.depth <= 3);
+const hasTableOfContents = tocHeadings.length > 0;
 ---
 
 <BaseLayout
@@ -37,62 +42,108 @@ const siteUrl = site.url || 'https://example.com';
     image: new URL(site.ogImage, siteUrl).href,
   }}
 >
-  <div class="max-w-3xl mx-auto px-6 pt-24 pb-16">
-    <ReadFrostedGlass>
-      <a
-        href={section.href}
-        class="text-sm text-fg/45 transition-colors hover:text-accent"
-      >
-        ← 返回{section.title}
-      </a>
+  <div
+    class:list={[
+      'mx-auto px-6 pt-24 pb-16',
+      hasTableOfContents
+        ? 'max-w-6xl lg:grid lg:grid-cols-[minmax(0,48rem)_minmax(13rem,16rem)] lg:items-start lg:justify-center lg:gap-10'
+        : 'max-w-3xl',
+    ]}
+  >
+    <div class="min-w-0">
+      <ReadFrostedGlass>
+        <a
+          href={section.href}
+          class="text-sm text-fg/45 transition-colors hover:text-accent"
+        >
+          ← 返回{section.title}
+        </a>
 
-      <header class="mt-6 pb-8 border-b border-fg/10">
-        <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">
-          {section.eyebrow}
-        </p>
-        <h1 class="text-4xl font-bold text-fg leading-tight">{title}</h1>
-        <p class="mt-4 text-lg leading-relaxed text-fg/55">{description}</p>
+        <header class="mt-6 pb-8 border-b border-fg/10">
+          <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">
+            {section.eyebrow}
+          </p>
+          <h1 class="text-4xl font-bold text-fg leading-tight">{title}</h1>
+          <p class="mt-4 text-lg leading-relaxed text-fg/55">{description}</p>
 
-        <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <time datetime={toDateTime(date)} class="text-sm text-fg/40 font-mono">
-            {formatArticleDate(date)}
-          </time>
-          {updated && (
-            <span class="text-sm text-fg/35">
-              更新於 <time datetime={toDateTime(updated)}>{formatArticleDate(updated)}</time>
-            </span>
-          )}
-          {tags && tags.length > 0 && (
-            <div class="flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <span class="text-sm text-fg/40">#{tag}</span>
-              ))}
+          <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <time datetime={toDateTime(date)} class="text-sm text-fg/40 font-mono">
+              {formatArticleDate(date)}
+            </time>
+            {updated && (
+              <span class="text-sm text-fg/35">
+                更新於 <time datetime={toDateTime(updated)}>{formatArticleDate(updated)}</time>
+              </span>
+            )}
+            {tags && tags.length > 0 && (
+              <div class="flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <span class="text-sm text-fg/40">#{tag}</span>
+                ))}
+              </div>
+            )}
+          </div>
+        </header>
+
+        {hasTableOfContents && (
+          <details class="mt-8 rounded-xl border border-fg/10 bg-bg/25 px-4 py-3 lg:hidden">
+            <summary
+              id="article-toc-mobile-label"
+              class="cursor-pointer font-medium text-fg/70 marker:text-fg/40"
+            >
+              文章目錄
+            </summary>
+            <div class="mt-3 border-l border-fg/10 pl-2">
+              <TableOfContents
+                headings={tocHeadings}
+                labelledBy="article-toc-mobile-label"
+              />
             </div>
-          )}
-        </div>
-      </header>
+          </details>
+        )}
 
-      <div
-        id="article-content"
-        class="mt-8 max-w-none overflow-x-auto prose prose-neutral dark:prose-invert text-lg
-               prose-p:my-5 prose-p:leading-relaxed prose-p:text-fg/85
-               prose-headings:scroll-mt-32 prose-headings:text-fg prose-headings:font-semibold
-               prose-headings:mt-10 prose-headings:mb-5
-               prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
-               prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-               prose-code:text-base prose-code:font-normal prose-code:text-accent
-               prose-code:bg-fg/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-               prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-xl
-               prose-pre:border prose-pre:border-fg/10 prose-pre:bg-fg/5
-               prose-img:my-8 prose-img:max-w-full prose-img:rounded-xl
-               prose-li:my-2 prose-li:leading-relaxed prose-li:text-fg/85
-               prose-blockquote:rounded-r-lg prose-blockquote:border-l-accent prose-blockquote:bg-fg/3
-               prose-hr:my-10 prose-hr:border-fg/10
-               prose-strong:text-fg prose-strong:font-semibold
-               prose-table:border-fg/10"
+        <div
+          id="article-content"
+          class="mt-8 max-w-none overflow-x-auto prose prose-neutral dark:prose-invert text-lg
+                 prose-p:my-5 prose-p:leading-relaxed prose-p:text-fg/85
+                 prose-headings:scroll-mt-40 prose-headings:text-fg prose-headings:font-semibold
+                 prose-headings:mt-10 prose-headings:mb-5
+                 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
+                 prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+                 prose-code:text-base prose-code:font-normal prose-code:text-accent
+                 prose-code:bg-fg/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+                 prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-xl
+                 prose-pre:border prose-pre:border-fg/10 prose-pre:bg-fg/5
+                 prose-img:my-8 prose-img:max-w-full prose-img:rounded-xl
+                 prose-li:my-2 prose-li:leading-relaxed prose-li:text-fg/85
+                 prose-blockquote:rounded-r-lg prose-blockquote:border-l-accent prose-blockquote:bg-fg/3
+                 prose-hr:my-10 prose-hr:border-fg/10
+                 prose-strong:text-fg prose-strong:font-semibold
+                 prose-table:border-fg/10"
+        >
+          <slot />
+        </div>
+      </ReadFrostedGlass>
+    </div>
+
+    {hasTableOfContents && (
+      <aside
+        class="sticky top-40 hidden min-w-0 border-l border-fg/10 pl-5 lg:block"
+        aria-labelledby="article-toc-desktop-label"
       >
-        <slot />
-      </div>
-    </ReadFrostedGlass>
+        <p
+          id="article-toc-desktop-label"
+          class="mb-4 text-xs font-medium tracking-[0.2em] text-fg/40"
+        >
+          文章目錄
+        </p>
+        <div class="max-h-[calc(100vh-12rem)] overflow-y-auto pr-1 no-scrollbar">
+          <TableOfContents
+            headings={tocHeadings}
+            labelledBy="article-toc-desktop-label"
+          />
+        </div>
+      </aside>
+    )}
   </div>
 </BaseLayout>

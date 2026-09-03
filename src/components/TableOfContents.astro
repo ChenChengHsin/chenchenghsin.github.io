@@ -1,0 +1,35 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+  labelledBy: string;
+}
+
+const { headings, labelledBy } = Astro.props;
+
+const levelStyles = {
+  1: 'pl-2 font-medium text-fg/70',
+  2: 'pl-5 text-fg/55',
+  3: 'pl-8 text-fg/45',
+} as const;
+---
+
+<nav aria-labelledby={labelledBy}>
+  <ol class="m-0 flex list-none flex-col gap-1 p-0">
+    {headings.map((heading) => (
+      <li class="m-0 p-0">
+        <a
+          href={`#${heading.slug}`}
+          class:list={[
+            'block min-w-0 break-words rounded-md py-2 pr-2 text-sm leading-snug',
+            'transition-colors hover:text-accent focus-visible:text-accent',
+            levelStyles[heading.depth as keyof typeof levelStyles],
+          ]}
+        >
+          {heading.text}
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>

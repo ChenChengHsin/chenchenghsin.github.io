@@ -20,9 +20,9 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
 ---
 
-<ArticleLayout {...article.data} section={articleSections.courses}>
+<ArticleLayout {...article.data} section={articleSections.courses} headings={headings}>
   <Content />
 </ArticleLayout>
