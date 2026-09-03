@@ -77,11 +77,11 @@ function navClass(href: string) {
   <body class="bg-bg text-fg min-h-screen flex flex-col">
     <!-- 全宽导航条：logo 在最左，导航+主题/壁纸在最右，中间留空 -->
     <header class="sticky top-4 z-50">
-      <div class="flex items-center justify-between w-full px-20 py-4
+      <div class="flex items-center justify-between w-full px-20 py-8
                   bg-bg/15 backdrop-blur-2xl
                   shadow-lg shadow-black/5
                   text-lg
-                  max-md:gap-3 max-md:px-4 max-md:py-2 max-md:text-sm">
+                  max-md:gap-3 max-md:px-4 max-md:py-3 max-md:text-sm">
         <a href="/" class:list={['px-3 py-1.5 max-md:px-2.5 max-md:py-1 rounded-full transition-all duration-200', navClass('/')]}>{site.name}</a>
 
         <!-- 右侧：桌面导航 + 主题/壁纸（整体靠右） -->
@@ -112,7 +112,7 @@ function navClass(href: string) {
     <!-- 手机端下拉菜单：放在 header 外，避免毛玻璃 backdrop-filter 影响 fixed 定位 -->
     <div
       id="mobile-menu"
-      class="lg:hidden fixed top-24 right-4 z-[60] w-72 max-w-[calc(100vw-2rem)]
+      class="lg:hidden fixed top-24 md:top-32 right-4 z-[60] w-72 max-w-[calc(100vw-2rem)]
              bg-bg/85 backdrop-blur-xl
              rounded-2xl shadow-xl shadow-black/10
              ring-1 ring-fg/10

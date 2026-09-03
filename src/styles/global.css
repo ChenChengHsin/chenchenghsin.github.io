@@ -5,6 +5,21 @@
 /* 1. 清空默认调色板：产物里不再带 red/blue/green 几百个色，只留你定义的 */
 @theme {
   --color-*: initial;
+
+  /* 全站字級：桌面約為 Tailwind 預設比例的 1.5 倍 */
+  --text-xs: 1.125rem;
+  --text-sm: 1.3125rem;
+  --text-base: 1.5rem;
+  --text-lg: 1.6875rem;
+  --text-xl: 1.875rem;
+  --text-2xl: 2.25rem;
+  --text-3xl: 2.8125rem;
+  --text-4xl: 3.375rem;
+  --text-5xl: 4.5rem;
+  --text-6xl: 5.625rem;
+  --text-7xl: 6.75rem;
+  --text-8xl: 9rem;
+  --text-9xl: 12rem;
 }
 
 /* 2. inline 是关键：让 class 在编译时内联底层变量，明暗切换才会在运行时生效 */
@@ -19,6 +34,31 @@
   --c-bg: #fafafa;
   --c-fg: #1a1a1a;
   --c-accent: #2563eb;
+}
+
+/* 沒有指定 text-* 工具類別的正文，也使用全站基準字級。 */
+body {
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+}
+
+/* 手機保留放大效果，同時收斂標題尺寸以避免窄螢幕擁擠。 */
+@media (max-width: 39.999rem) {
+  :root {
+    --text-xs: 0.9375rem;
+    --text-sm: 1.09375rem;
+    --text-base: 1.25rem;
+    --text-lg: 1.40625rem;
+    --text-xl: 1.5625rem;
+    --text-2xl: 1.875rem;
+    --text-3xl: 2.25rem;
+    --text-4xl: 2.75rem;
+    --text-5xl: 3.5rem;
+    --text-6xl: 4rem;
+    --text-7xl: 4.5rem;
+    --text-8xl: 5.5rem;
+    --text-9xl: 7rem;
+  }
 }
 
 /* 4. 暗模式的值：同名变量换一套值，引用语义色的 class 自动跟着变 */

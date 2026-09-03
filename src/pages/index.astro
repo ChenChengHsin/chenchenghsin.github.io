@@ -1,8 +1,9 @@
 ---
-// 首页 - 网站主页
+// 主頁面 - 個人介紹
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AnimateIn from '../components/AnimateIn.astro';
 import { site } from '../site.config';
+import profileImage from '../assets/profile.png';
 
 const siteUrl = site.url || 'https://example.com';
 ---
@@ -27,10 +28,33 @@ const siteUrl = site.url || 'https://example.com';
     ],
   }}
 >
-    <div class="max-w-4xl mx-auto px-6 pt-24 pb-16">
-        <AnimateIn>
-        <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">WELCOME / 歡迎</p>
-        </AnimateIn>
+  <div class="max-w-4xl mx-auto px-6 pt-24 pb-16">
+    <div class="grid items-center gap-12 md:grid-cols-[minmax(0,1fr)_minmax(240px,320px)] md:gap-16">
+      <div class="min-w-0">
+        <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">PROFILE / 自我介紹</p>
+        <h1 class="text-3xl font-bold mb-8">{site.author.name}</h1>
+        <p class="mt-6 text-fg/70 leading-relaxed">
+          {site.about}
+        </p>
+
+        <!-- 學習背景、興趣領域與經歷將在資料確認後加入此欄。 -->
+        <div class="mt-10 space-y-4 text-fg/60">
+          <p>📬 GitHub: <a href={`https://github.com/${site.author.github}`} class="text-accent hover:underline">@{site.author.github}</a></p>
+          {site.author.location && <p>📍 {site.author.location}</p>}
+        </div>
+      </div>
+
+      <div class="flex justify-center md:justify-end">
+        <Image
+          src={profileImage}
+          alt={`${site.author.name} 的個人照片`}
+          width={320}
+          height={320}
+          class="aspect-square w-full max-w-[280px] sm:max-w-[300px] md:max-w-[320px]
+                 rounded-full object-cover shadow-lg shadow-black/10"
+        />
+      </div>
     </div>
+  </div>
 
 </BaseLayout>
