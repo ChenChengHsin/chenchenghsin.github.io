@@ -3,7 +3,7 @@
 import '../styles/global.css';
 import { site } from '../site.config';
 import ThemeToggle from '../components/ThemeToggle.astro';
-import WallpaperPicker from '../components/WallpaperPicker.astro';
+import ThemeWallpaper from '../components/ThemeWallpaper.astro';
 
 const {
   title,
@@ -26,7 +26,7 @@ function navClass(href: string) {
  
 
 <!doctype html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="bg-bg">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,8 +74,10 @@ function navClass(href: string) {
   </script>
   </head>
 
-  <body class="bg-bg text-fg min-h-screen flex flex-col">
-    <!-- 全宽导航条：logo 在最左，导航+主题/壁纸在最右，中间留空 -->
+  <body class="text-fg min-h-screen flex flex-col">
+    <ThemeWallpaper />
+
+    <!-- 全宽导航条：logo 在最左，导航和主题控制在最右，中间留空 -->
     <header class="sticky top-4 z-50">
       <div class="flex items-center justify-between w-full px-20 py-8
                   bg-bg/15 backdrop-blur-2xl
@@ -84,16 +86,15 @@ function navClass(href: string) {
                   max-md:gap-3 max-md:px-4 max-md:py-3 max-md:text-sm">
         <a href="/" class:list={['px-3 py-1.5 max-md:px-2.5 max-md:py-1 rounded-full transition-all duration-200', navClass('/')]}>{site.name}</a>
 
-        <!-- 右侧：桌面导航 + 主题/壁纸（整体靠右） -->
+        <!-- 右侧：桌面导航 + 主题控制（整体靠右） -->
         <div class="flex items-center gap-1">
           <!-- 桌面导航（lg 及以上横排显示，仅导航链接） -->
-          <nav class="hidden lg:flex items-center gap-1">
+          <nav class="hidden lg:flex items-center gap-2">
             {site.nav.map((item) => (
               <a href={item.href} class:list={['px-3 py-1.5 rounded-full transition-all duration-200', navClass(item.href)]}>{item.label}</a>
             ))}
           </nav>
           <ThemeToggle />
-          <WallpaperPicker />
           <!-- 汉堡按钮：仅手机显示 -->
           <button
             id="menu-btn"

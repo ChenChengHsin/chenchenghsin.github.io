@@ -1,0 +1,51 @@
+---
+import { getImage } from 'astro:assets';
+import lightWallpaperSource from '../assets/wallpaper/light/默认light.png';
+import darkWallpaperSource from '../assets/wallpaper/dark/默认dark.png';
+
+const [lightWallpaper, darkWallpaper] = await Promise.all([
+  getImage({ src: lightWallpaperSource, width: 1920, format: 'webp' }),
+  getImage({ src: darkWallpaperSource, width: 1920, format: 'webp' }),
+]);
+---
+
+<div class="theme-wallpaper" aria-hidden="true">
+  <div
+    class="theme-wallpaper__layer theme-wallpaper__light"
+    style={`background-image: url("${lightWallpaper.src}")`}
+  ></div>
+  <div
+    class="theme-wallpaper__layer theme-wallpaper__dark"
+    style={`background-image: url("${darkWallpaper.src}")`}
+  ></div>
+</div>
+
+<style>
+  .theme-wallpaper {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .theme-wallpaper__layer {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .theme-wallpaper__light {
+    opacity: 1;
+  }
+
+  :global([data-theme='dark']) .theme-wallpaper__light {
+    opacity: 0;
+  }
+
+  :global([data-theme='dark']) .theme-wallpaper__dark {
+    opacity: 1;
+  }
+</style>

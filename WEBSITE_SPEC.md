@@ -173,6 +173,27 @@ Do not allow navigation text to overflow horizontally.
 Reuse the existing responsive navbar behavior when possible.
 
 
+
+### Navigation Spacing
+
+On desktop, the four primary navigation items should have generous
+horizontal spacing, approximately 1.5–2× the previous navigation gap.
+
+Use layout spacing such as `gap` rather than inserting spaces into labels.
+
+
+### Wallpaper Control
+
+Users should NOT be able to manually select wallpapers.
+
+Remove the manual wallpaper-selection control from the navbar.
+
+The light/dark theme toggle must remain functional.
+
+The website may continue using its default background/wallpaper behavior,
+including theme-specific backgrounds if already supported.
+
+
 ---
 
 ## 5. Information Architecture
