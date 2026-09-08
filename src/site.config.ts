@@ -18,13 +18,11 @@ export const site = {
 
   // 作者信息
   author: {
-    name: 'ruijieking',
+    name: 'Zn',
     github: 'ruijieking',
+    hackmd: 'https://hackmd.io/@k2Ktk2THQ42WBv-U3SNlDA',
     location: '',
   },
-
-  // 关于页面的介绍文字
-  about: '這是 ruijieking 的個人網站，分享修課心得、活動紀錄與生活隨筆。',
 
   // 导航栏（href + 显示文字，数组顺序即显示顺序）
   nav: [

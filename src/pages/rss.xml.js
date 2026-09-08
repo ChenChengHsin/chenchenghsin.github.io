@@ -1,24 +1,37 @@
-// RSS 订阅源：构建时生成 /rss.xml，读者可用 RSS 阅读器订阅
+// RSS 訂閱源：建置時產生 /rss.xml，讀者可使用 RSS 閱讀器訂閱
 
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import { site } from '../site.config';
+import { articleSections, isArticleVisible } from '../utils/articles';
+
+const articleCollections = ['courses', 'activities', 'essays'];
 
 export async function GET(context) {
-  const posts = await getCollection('blog');
+  const items = (
+    await Promise.all(
+      articleCollections.map(async (collection) => {
+        const section = articleSections[collection];
+        const articles = await getCollection(
+          collection,
+          ({ data }) => isArticleVisible(data),
+        );
+
+        return articles.map((article) => ({
+          title: article.data.title,
+          description: article.data.description,
+          pubDate: article.data.date,
+          link: `${section.href}/${article.id}/`,
+        }));
+      }),
+    )
+  ).flat().sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
+
   return rss({
     title: site.defaultTitle,
     description: site.description,
     site: context.site,
-    items: posts
-      // 过滤掉 pubDate 无效的文章（如 '2025-05-425'），否则 RSS 生成会报错
-      .filter((post) => !Number.isNaN(new Date(post.data.pubDate).getTime()))
-      .map((post) => ({
-        title: post.data.title,
-        description: post.data.description,
-        pubDate: new Date(post.data.pubDate),
-        link: `/blog/${post.id}/`,
-      })),
-    customData: '<language>zh-cn</language>',
+    items,
+    customData: '<language>zh-TW</language>',
   });
 }

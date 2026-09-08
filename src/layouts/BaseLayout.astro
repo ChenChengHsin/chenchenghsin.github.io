@@ -1,5 +1,5 @@
 ---
-//默认布局，所有页面都必须套上这个布局，不然壁纸和导航栏功能不能正常工作
+// 預設版面，所有頁面都必須套用這個版面，否則桌布和導覽列功能無法正常運作
 import '../styles/global.css';
 import { site } from '../site.config';
 import ThemeToggle from '../components/ThemeToggle.astro';
@@ -10,9 +10,10 @@ const {
   ogType = 'website',
   ogDescription = site.description,
   jsonLd,
+  showSiteChrome = true,
 } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : site.defaultTitle;
-// SEO 使用的站点域名（site.url 留空时用占位域名）
+// SEO 使用的網站網域（site.url 留空時使用預留網域）
 const siteUrl = site.url || 'https://example.com';
 const currentPath = Astro.url.pathname;
 
@@ -45,15 +46,15 @@ function navClass(href: string) {
     <link rel="canonical" href={new URL(Astro.url.pathname, siteUrl).href} />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
    
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/profile-favicon.png" sizes="32x32" />
     <title>{pageTitle}</title>
 
   <script is:inline>
-  // 更改网页图标的配置代码在这里，默认使用favicon.png名字和格式图片， <link rel="icon" type="image/png" href="/favicon.png" />
+  // 網頁圖示使用 public/profile-favicon.png。
  
  
-  // ===== 第一层：首屏防闪（FOUC）=====
-  // 必须在 head 里同步执行，在浏览器画第一帧之前设好主题
+  // ===== 第一層：首屏防閃（FOUC）=====
+  // 必須在 head 裡同步執行，在瀏覽器繪製第一幀之前設定好主題
   (function () {
     var stored = localStorage.getItem('theme');
     var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -61,9 +62,9 @@ function navClass(href: string) {
     document.documentElement.setAttribute('data-theme', theme);
   })();
 
-  // ===== 第二层：ClientRouter 切页防闪 =====
-  // ClientRouter 导航后不重跑 inline 脚本，
-  // 必须监听 astro:after-swap 事件，在新页面渲染前重新设主题
+  // ===== 第二層：ClientRouter 切頁防閃 =====
+  // ClientRouter 導覽後不會重新執行 inline script，
+  // 必須監聽 astro:after-swap 事件，在新頁面繪製前重新設定主題
   function applyTheme() {
     var stored = localStorage.getItem('theme');
     var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -77,8 +78,8 @@ function navClass(href: string) {
   <body class="text-fg min-h-screen flex flex-col">
     <ThemeWallpaper />
 
-    <!-- 全宽导航条：logo 在最左，导航和主题控制在最右，中间留空 -->
-    <header class="sticky top-4 z-50">
+    <!-- 全寬導覽列：logo 在最左側，導覽和主題控制在最右側，中間保留空間 -->
+    <header class:list={['sticky top-4 z-50', !showSiteChrome && 'invisible pointer-events-none']}>
       <div class="flex items-center justify-between w-full px-20 py-8
                   bg-bg/15 backdrop-blur-2xl
                   shadow-lg shadow-black/5
@@ -86,16 +87,16 @@ function navClass(href: string) {
                   max-md:gap-3 max-md:px-4 max-md:py-3 max-md:text-sm">
         <a href="/" class:list={['px-3 py-1.5 max-md:px-2.5 max-md:py-1 rounded-full transition-all duration-200', navClass('/')]}>{site.name}</a>
 
-        <!-- 右侧：桌面导航 + 主题控制（整体靠右） -->
+        <!-- 右側：桌面導覽 + 主題控制（整體靠右） -->
         <div class="flex items-center gap-1">
-          <!-- 桌面导航（lg 及以上横排显示，仅导航链接） -->
+          <!-- 桌面導覽（lg 以上橫向顯示，僅含導覽連結） -->
           <nav class="hidden lg:flex items-center gap-2">
             {site.nav.map((item) => (
               <a href={item.href} class:list={['px-3 py-1.5 rounded-full transition-all duration-200', navClass(item.href)]}>{item.label}</a>
             ))}
           </nav>
           <ThemeToggle />
-          <!-- 汉堡按钮：仅手机显示 -->
+          <!-- 漢堡按鈕：僅手機顯示 -->
           <button
             id="menu-btn"
             class="lg:hidden p-1.5 rounded-full hover:bg-fg/10 transition-colors"
@@ -110,16 +111,19 @@ function navClass(href: string) {
       </div>
     </header>
 
-    <!-- 手机端下拉菜单：放在 header 外，避免毛玻璃 backdrop-filter 影响 fixed 定位 -->
+    <!-- 手機版下拉選單：放在 header 外，避免毛玻璃 backdrop-filter 影響 fixed 定位 -->
     <div
       id="mobile-menu"
-      class="lg:hidden fixed top-24 md:top-32 right-4 z-[60] w-72 max-w-[calc(100vw-2rem)]
-             bg-bg/85 backdrop-blur-xl
-             rounded-2xl shadow-xl shadow-black/10
-             ring-1 ring-fg/10
-             scale-95 opacity-0 pointer-events-none
-             transition-all duration-200 ease-out
-             flex flex-col p-2"
+      class:list={[
+        `lg:hidden fixed top-24 md:top-32 right-4 z-[60] w-72 max-w-[calc(100vw-2rem)]
+         bg-bg/85 backdrop-blur-xl
+         rounded-2xl shadow-xl shadow-black/10
+         ring-1 ring-fg/10
+         scale-95 opacity-0 pointer-events-none
+         transition-all duration-200 ease-out
+         flex flex-col p-2`,
+        !showSiteChrome && 'invisible',
+      ]}
     >
       {site.nav.map((item) => (
         <a
@@ -131,16 +135,16 @@ function navClass(href: string) {
       ))}
     </div>
 
-    <!-- slot 是"页面内容插入的洞"：layout 提供外壳，页面的内容填进这里 -->
+    <!-- slot 是「頁面內容插入處」：layout 提供外殼，頁面內容填入這裡 -->
     <main class="flex-1">
       <slot />
     </main>
-    <footer class="px-8 py-6 border-t border-fg/10 text-sm opacity-60">
+    <footer class:list={['px-8 py-6 border-t border-fg/10 text-sm opacity-60', !showSiteChrome && 'invisible']}>
       {site.name}
     </footer>
 
   <script>
-    // ===== 手机端汉堡菜单（事件委托 + 动态查询，ClientRouter 切页后依然有效） =====
+    // ===== 手機版漢堡選單（事件委派 + 動態查詢，ClientRouter 切頁後依然有效） =====
     let menuOpen = false;
 
     function getMenu() {
@@ -162,17 +166,17 @@ function navClass(href: string) {
 
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement | null;
-      // 点汉堡按钮：切换开合
+      // 點擊漢堡按鈕：切換開合
       if (target?.closest('#menu-btn')) {
         setMenu(!menuOpen);
         return;
       }
-      // 点菜单里的链接：关闭
+      // 點擊選單內的連結：關閉
       if (target?.closest('#mobile-menu a')) {
         setMenu(false);
         return;
       }
-      // 点外部空白：关闭
+      // 點擊外部空白：關閉
       if (menuOpen && !target?.closest('#mobile-menu')) {
         setMenu(false);
       }

@@ -106,6 +106,26 @@ English may still appear naturally inside:
 but the main website interface should use Traditional Chinese.
 
 
+
+### Language Integrity
+
+The public-facing Zn website must use Traditional Chinese only.
+
+Simplified Chinese must not appear in:
+
+- UI
+- pages
+- metadata
+- accessibility labels
+- error pages
+- sample/demo content
+- legacy template pages that remain publicly accessible
+
+Unknown or retired routes should resolve to the normal 404 page rather
+than exposing legacy template content.
+
+The 404 page itself should display only the large blue `404` and no other
+visible text.
 ---
 
 ## 4. Main Navigation
