@@ -2,14 +2,33 @@
 // 主頁面 - 個人介紹
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Timeline from '../components/Timeline.astro';
 import { site } from '../site.config';
 import profileImage from '../assets/profile.png';
-import { Content as HomeContent } from '../content/home.md';
+import {
+  Content as HomeContent,
+  frontmatter as homeFrontmatter,
+} from '../content/home.md';
+
+interface TimelineEntry {
+  date: string;
+  title: string;
+  link?: string;
+}
+
+interface HomeFrontmatter {
+  education?: TimelineEntry[];
+  experience?: TimelineEntry[];
+}
 
 const siteUrl = site.url || 'https://example.com';
 const githubUrl = site.author.github
   ? `https://github.com/${site.author.github}`
   : undefined;
+const {
+  education = [],
+  experience = [],
+} = homeFrontmatter as HomeFrontmatter;
 ---
 
 <BaseLayout
@@ -50,7 +69,7 @@ const githubUrl = site.author.github
         )}
       </div>
 
-      <div class="flex justify-center md:justify-end">
+      <div class="flex justify-center md:-translate-y-4 md:justify-end">
         <div
           class="aspect-square w-full max-w-[280px] overflow-hidden rounded-full shadow-lg shadow-black/10
                  sm:max-w-[300px] md:max-w-[320px]"
@@ -64,6 +83,23 @@ const githubUrl = site.author.github
           />
         </div>
       </div>
+    </div>
+
+    <div class="mt-24 space-y-20 md:mt-28">
+      {education.length > 0 && (
+        <Timeline
+          heading="學習背景"
+          headingId="home-education"
+          entries={education}
+        />
+      )}
+      {experience.length > 0 && (
+        <Timeline
+          heading="經歷"
+          headingId="home-experience"
+          entries={experience}
+        />
+      )}
     </div>
   </div>
 
