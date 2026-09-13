@@ -1,4 +1,4 @@
-export type ArticleCollectionName = 'courses' | 'activities' | 'essays';
+export type ArticleCollectionName = 'courses' | 'activities' | 'musings';
 
 export interface ArticleSection {
   title: string;
@@ -17,10 +17,10 @@ export const articleSections = {
     eyebrow: 'ACTIVITIES',
     href: '/activities',
   },
-  essays: {
+  musings: {
     title: '隨筆',
-    eyebrow: 'ESSAYS',
-    href: '/essays',
+    eyebrow: 'MUSINGS',
+    href: '/musings',
   },
 } satisfies Record<ArticleCollectionName, ArticleSection>;
 

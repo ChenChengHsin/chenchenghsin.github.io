@@ -206,7 +206,7 @@ The website will contain three article categories:
 
 - 修課心得 / Courses
 - 活動與團體 / Activities & Groups
-- 隨筆 / Essays
+- 隨筆 / Musings
 
 The user normally writes articles in HackMD and wants publishing to remain simple.
 
@@ -541,7 +541,7 @@ For this project, especially document:
 - How to replace the profile photo
 - How to create a new Course article
 - How to create a new Activities & Groups article
-- How to create a new Essay
+- How to create a new Musings article
 - Where article images should be placed
 - Which frontmatter fields are required
 - How to preview the website locally

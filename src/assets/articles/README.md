@@ -6,7 +6,7 @@
 articles/
 ├── courses/<article-slug>/
 ├── activities/<article-slug>/
-└── essays/<article-slug>/
+└── musings/<article-slug>/
 ```
 
 例如 `src/content/courses/algorithm-notes.md` 使用的圖片，可放在：

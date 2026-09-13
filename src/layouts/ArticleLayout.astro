@@ -46,104 +46,337 @@ const hasTableOfContents = tocHeadings.length > 0;
     class:list={[
       'mx-auto px-6 pt-24 pb-16',
       hasTableOfContents
-        ? 'max-w-6xl lg:grid lg:grid-cols-[minmax(0,48rem)_minmax(13rem,16rem)] lg:items-start lg:justify-center lg:gap-10'
-        : 'max-w-3xl',
+        ? 'max-w-[71rem] min-[82rem]:grid min-[82rem]:max-w-[98rem] min-[82rem]:grid-cols-[minmax(0,1fr)_19rem] min-[82rem]:items-start min-[82rem]:gap-12 min-[104rem]:max-w-[113rem] min-[104rem]:grid-cols-[minmax(0,1fr)_23rem] min-[104rem]:gap-[4.5rem]'
+        : 'max-w-[82rem]',
     ]}
   >
     <div class="min-w-0">
-      <ReadFrostedGlass>
-        <a
-          href={section.href}
-          class="text-sm text-fg/45 transition-colors hover:text-accent"
-        >
-          ← 回到{section.title}
-        </a>
-
-        <header class="mt-6 pb-8 border-b border-fg/10">
-          <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">
-            {section.eyebrow}
-          </p>
-          <h1 class="text-4xl font-bold text-fg leading-tight">{title}</h1>
-          <p class="mt-4 text-lg leading-relaxed text-fg/55">{description}</p>
-
-          <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <time datetime={toDateTime(date)} class="text-sm text-fg/40 font-mono">
-              {formatArticleDate(date)}
-            </time>
-            {updated && (
-              <span class="text-sm text-fg/35">
-                更新於 <time datetime={toDateTime(updated)}>{formatArticleDate(updated)}</time>
-              </span>
-            )}
-            {tags && tags.length > 0 && (
-              <div class="flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <span class="text-sm text-fg/40">#{tag}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        </header>
-
-        {hasTableOfContents && (
-          <details class="mt-8 rounded-xl border border-fg/10 bg-bg/25 px-4 py-3 lg:hidden">
-            <summary
-              id="article-toc-mobile-label"
-              class="cursor-pointer font-medium text-fg/70 marker:text-fg/40"
+      <div class="min-[82rem]:-ml-6">
+        <ReadFrostedGlass>
+          <div class="min-[82rem]:ml-6">
+            <div
+              class:list={[
+                hasTableOfContents &&
+                  'min-[104rem]:mx-auto min-[104rem]:max-w-[68rem]',
+              ]}
             >
-              文章目錄
-            </summary>
-            <div class="mt-3 border-l border-fg/10 pl-2">
-              <TableOfContents
-                headings={tocHeadings}
-                labelledBy="article-toc-mobile-label"
-              />
-            </div>
-          </details>
-        )}
+              <a
+                href={section.href}
+                class="text-sm text-fg/45 transition-colors hover:text-accent"
+              >
+                ← 回到{section.title}
+              </a>
 
-        <div
-          id="article-content"
-          class="mt-8 max-w-none overflow-x-auto prose prose-neutral dark:prose-invert text-lg
-                 prose-p:my-5 prose-p:leading-relaxed prose-p:text-fg/85
-                 prose-headings:scroll-mt-40 prose-headings:text-fg prose-headings:font-semibold
-                 prose-headings:mt-10 prose-headings:mb-5
-                 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
-                 prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-                 prose-code:text-base prose-code:font-normal prose-code:text-accent
-                 prose-code:bg-fg/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-                 prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-xl
-                 prose-pre:border prose-pre:border-fg/10 prose-pre:bg-fg/5
-                 prose-img:my-8 prose-img:max-w-full prose-img:rounded-xl
-                 prose-li:my-2 prose-li:leading-relaxed prose-li:text-fg/85
-                 prose-blockquote:rounded-r-lg prose-blockquote:border-l-accent prose-blockquote:bg-fg/3
-                 prose-hr:my-10 prose-hr:border-fg/10
-                 prose-strong:text-fg prose-strong:font-semibold
-                 prose-table:border-fg/10"
-        >
-          <slot />
-        </div>
-      </ReadFrostedGlass>
+              <header class="mt-6 pb-8 border-b border-fg/10">
+                <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">
+                  {section.eyebrow}
+                </p>
+                <h1 class="text-4xl font-bold text-fg leading-tight">{title}</h1>
+                <p class="mt-4 text-lg leading-relaxed text-fg/55">{description}</p>
+
+                <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <time datetime={toDateTime(date)} class="text-sm text-fg/40 font-mono">
+                    {formatArticleDate(date)}
+                  </time>
+                  {updated && (
+                    <span class="text-sm text-fg/35">
+                      更新於 <time datetime={toDateTime(updated)}>{formatArticleDate(updated)}</time>
+                    </span>
+                  )}
+                  {tags && tags.length > 0 && (
+                    <div class="flex flex-wrap gap-2">
+                      {tags.map((tag) => (
+                        <span class="text-sm text-fg/40">#{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </header>
+
+              {hasTableOfContents && (
+                <details class="mt-8 rounded-xl border border-fg/10 bg-bg/25 px-4 py-3 min-[82rem]:hidden">
+                  <summary
+                    id="article-toc-mobile-label"
+                    class="cursor-pointer font-medium text-fg/70 marker:text-fg/40"
+                  >
+                    文章目錄
+                  </summary>
+                  <div class="mt-3 border-l border-fg/10 pl-2">
+                    <TableOfContents
+                      headings={tocHeadings}
+                      labelledBy="article-toc-mobile-label"
+                    />
+                  </div>
+                </details>
+              )}
+
+              <div
+                id="article-content"
+                class="mt-8 max-w-none overflow-x-auto prose prose-neutral dark:prose-invert text-lg
+                       prose-p:my-5 prose-p:leading-relaxed prose-p:text-fg/85
+                       prose-headings:scroll-mt-40 prose-headings:text-fg prose-headings:font-semibold
+                       prose-headings:mt-10 prose-headings:mb-5
+                       prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
+                       prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+                       prose-code:text-base prose-code:font-normal prose-code:text-accent
+                       prose-code:bg-fg/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+                       prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-xl
+                       prose-pre:border prose-pre:border-fg/10 prose-pre:bg-fg/5
+                       prose-img:my-8 prose-img:max-w-full prose-img:rounded-xl
+                       prose-li:my-2 prose-li:leading-relaxed prose-li:text-fg/85
+                       prose-blockquote:rounded-r-lg prose-blockquote:border-l-accent prose-blockquote:bg-fg/3
+                       prose-hr:my-10 prose-hr:border-fg/10
+                       prose-strong:text-fg prose-strong:font-semibold
+                       prose-table:border-fg/10"
+              >
+                <slot />
+              </div>
+            </div>
+          </div>
+        </ReadFrostedGlass>
+      </div>
     </div>
 
     {hasTableOfContents && (
       <aside
-        class="sticky top-40 hidden min-w-0 border-l border-fg/10 pl-5 lg:block"
+        class="sticky top-40 hidden max-h-[calc(100vh-12rem)] min-w-0 flex-col
+               rounded-r-xl border-l border-fg/15 bg-bg/30 py-5 pr-4 pl-6
+               backdrop-blur-md min-[82rem]:flex"
         aria-labelledby="article-toc-desktop-label"
       >
         <p
           id="article-toc-desktop-label"
-          class="mb-4 text-xs font-medium tracking-[0.2em] text-fg/40"
+          class="mb-6 text-sm font-semibold tracking-[0.12em] text-fg/70"
         >
           文章目錄
         </p>
-        <div class="max-h-[calc(100vh-12rem)] overflow-y-auto pr-1 no-scrollbar">
+        <div class="min-h-0 flex-1 overflow-y-auto pr-1 no-scrollbar" data-toc-scroll>
           <TableOfContents
             headings={tocHeadings}
             labelledBy="article-toc-desktop-label"
+            variant="sidebar"
           />
         </div>
       </aside>
     )}
   </div>
+
+  <style is:global>
+    #article-content blockquote {
+      font-style: normal;
+    }
+
+    #article-content blockquote p:first-of-type::before,
+    #article-content blockquote p:last-of-type::after {
+      content: none;
+    }
+  </style>
+
+  <script>
+  let articleTocCleanup: (() => void) | undefined;
+
+  function readHash(): string {
+    const hash = window.location.hash.slice(1);
+
+    try {
+      return decodeURIComponent(hash);
+    } catch {
+      return hash;
+    }
+  }
+
+  function initializeArticleToc(): void {
+    articleTocCleanup?.();
+    articleTocCleanup = undefined;
+
+    const article = document.getElementById('article-content');
+    const tocLinks = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>('[data-toc-link][data-heading-id]'),
+    );
+
+    if (!article || tocLinks.length === 0) return;
+
+    const linksByHeading = new Map<string, HTMLAnchorElement[]>();
+
+    for (const link of tocLinks) {
+      const headingId = link.dataset.headingId;
+      if (!headingId) continue;
+
+      const links = linksByHeading.get(headingId) ?? [];
+      links.push(link);
+      linksByHeading.set(headingId, links);
+    }
+
+    const articleHeadings = Array.from(
+      article.querySelectorAll<HTMLElement>('h1[id], h2[id], h3[id]'),
+    ).filter((heading) => linksByHeading.has(heading.id));
+
+    if (articleHeadings.length === 0) return;
+
+    const tocScroller = document.querySelector<HTMLElement>('[data-toc-scroll]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let activeHeadingId = '';
+    let activationY = 0;
+    let activationBandHeight = 2;
+    let documentEndActive = false;
+    let updateFrame = 0;
+    let resizeFrame = 0;
+    let headingObserver: IntersectionObserver | undefined;
+
+    function centerActiveTocLink(headingId: string, animate: boolean): void {
+      if (!tocScroller || tocScroller.clientHeight === 0) return;
+
+      const activeLink = linksByHeading
+        .get(headingId)
+        ?.find((link) => tocScroller.contains(link));
+
+      if (!activeLink) return;
+
+      const scrollerRect = tocScroller.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+      const scrollportCenter =
+        scrollerRect.top + tocScroller.clientTop + tocScroller.clientHeight / 2;
+      const linkCenter = linkRect.top + linkRect.height / 2;
+      const maximumScroll = Math.max(0, tocScroller.scrollHeight - tocScroller.clientHeight);
+      const nextScroll = Math.min(
+        maximumScroll,
+        Math.max(0, tocScroller.scrollTop + linkCenter - scrollportCenter),
+      );
+
+      if (Math.abs(nextScroll - tocScroller.scrollTop) < 1) return;
+
+      tocScroller.scrollTo({
+        top: nextScroll,
+        behavior: animate && !reduceMotion ? 'smooth' : 'auto',
+      });
+    }
+
+    function setActiveHeading(headingId: string, animate = true): void {
+      if (!linksByHeading.has(headingId) || headingId === activeHeadingId) return;
+
+      activeHeadingId = headingId;
+
+      for (const link of tocLinks) {
+        if (link.dataset.headingId === headingId) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      }
+
+      centerActiveTocLink(headingId, animate);
+    }
+
+    function updateActiveHeading(): void {
+      let currentHeading = articleHeadings[0];
+
+      for (const heading of articleHeadings) {
+        if (heading.getBoundingClientRect().top <= activationY + activationBandHeight) {
+          currentHeading = heading;
+        } else {
+          break;
+        }
+      }
+
+      if (documentEndActive) {
+        currentHeading = articleHeadings[articleHeadings.length - 1];
+      }
+
+      setActiveHeading(currentHeading.id, activeHeadingId !== '');
+    }
+
+    function queueActiveHeadingUpdate(): void {
+      if (updateFrame) return;
+
+      updateFrame = window.requestAnimationFrame(() => {
+        updateFrame = 0;
+        updateActiveHeading();
+      });
+    }
+
+    function createObservers(): void {
+      headingObserver?.disconnect();
+
+      const rootFontSize = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize,
+      ) || 16;
+      activationBandHeight = 2;
+      activationY = Math.min(
+        rootFontSize * 10,
+        Math.max(1, window.innerHeight - activationBandHeight),
+      );
+      const bottomMargin = Math.max(
+        0,
+        window.innerHeight - activationY - activationBandHeight,
+      );
+
+      headingObserver = new IntersectionObserver(queueActiveHeadingUpdate, {
+        rootMargin: `-${activationY}px 0px -${bottomMargin}px 0px`,
+        threshold: 0,
+      });
+
+      for (const heading of articleHeadings) {
+        headingObserver.observe(heading);
+      }
+
+      queueActiveHeadingUpdate();
+    }
+
+    function isDocumentAtEnd(): boolean {
+      const root = document.documentElement;
+      const maximumScroll = root.scrollHeight - window.innerHeight;
+      return maximumScroll > 2 && window.scrollY > 0 && window.scrollY >= maximumScroll - 24;
+    }
+
+    function handleDocumentScroll(): void {
+      documentEndActive = isDocumentAtEnd();
+      queueActiveHeadingUpdate();
+    }
+
+    function handleResize(): void {
+      if (resizeFrame) return;
+
+      resizeFrame = window.requestAnimationFrame(() => {
+        resizeFrame = 0;
+        documentEndActive = isDocumentAtEnd();
+        createObservers();
+        if (activeHeadingId) centerActiveTocLink(activeHeadingId, false);
+      });
+    }
+
+    function handleHashChange(): void {
+      const headingId = readHash();
+      if (headingId) setActiveHeading(headingId, false);
+      queueActiveHeadingUpdate();
+    }
+
+    const initialHeadingId = readHash();
+    documentEndActive = isDocumentAtEnd();
+    setActiveHeading(
+      linksByHeading.has(initialHeadingId) ? initialHeadingId : articleHeadings[0].id,
+      false,
+    );
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    if ('IntersectionObserver' in window) {
+      createObservers();
+      window.addEventListener('resize', handleResize, { passive: true });
+      window.addEventListener('scroll', handleDocumentScroll, { passive: true });
+    }
+
+    articleTocCleanup = () => {
+      headingObserver?.disconnect();
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleDocumentScroll);
+      window.removeEventListener('hashchange', handleHashChange);
+      if (updateFrame) window.cancelAnimationFrame(updateFrame);
+      if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
+    };
+  }
+
+  document.addEventListener('astro:page-load', initializeArticleToc);
+  document.addEventListener('astro:before-swap', () => articleTocCleanup?.());
+  initializeArticleToc();
+  </script>
 </BaseLayout>

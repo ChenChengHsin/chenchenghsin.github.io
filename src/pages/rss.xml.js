@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import { site } from '../site.config';
 import { articleSections, isArticleVisible } from '../utils/articles';
 
-const articleCollections = ['courses', 'activities', 'essays'];
+const articleCollections = ['courses', 'activities', 'musings'];
 
 export async function GET(context) {
   const items = (

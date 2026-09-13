@@ -25,6 +25,7 @@ const siteUrl = site.url || 'https://example.com';
 const githubUrl = site.author.github
   ? `https://github.com/${site.author.github}`
   : undefined;
+const hackmdUrl = site.author.hackmd?.trim() || undefined;
 const {
   education = [],
   experience = [],
@@ -51,7 +52,7 @@ const {
     ],
   }}
 >
-  <div class="max-w-4xl mx-auto px-6 pt-24 pb-16">
+  <div class="max-w-4xl mx-auto px-6 pt-24 pb-16 lg:max-w-6xl">
     <div class="grid items-center gap-12 md:grid-cols-[minmax(0,1fr)_minmax(240px,320px)] md:gap-16">
       <div class="min-w-0">
         <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">PROFILE / 自我介紹</p>
@@ -59,17 +60,17 @@ const {
           <HomeContent />
         </div>
 
-        {(githubUrl || site.author.location) && (
+        {(hackmdUrl || site.author.location) && (
           <div class="mt-10 space-y-4 text-fg/60">
-            {githubUrl && (
-              <p>📬 GitHub: <a href={githubUrl} class="text-accent hover:underline">@{site.author.github}</a></p>
+            {hackmdUrl && (
+              <p>📝 HackMD: <a href={hackmdUrl} class="text-accent hover:underline">{site.author.name}</a></p>
             )}
             {site.author.location && <p>📍 {site.author.location}</p>}
           </div>
         )}
       </div>
 
-      <div class="flex justify-center md:-translate-y-4 md:justify-end">
+      <div class="flex justify-center md:translate-x-4 md:-translate-y-16 md:justify-end lg:-translate-x-14 lg:-translate-y-28 xl:-translate-x-6">
         <div
           class="aspect-square w-full max-w-[280px] overflow-hidden rounded-full shadow-lg shadow-black/10
                  sm:max-w-[300px] md:max-w-[320px]"
@@ -79,7 +80,7 @@ const {
             alt={`${site.author.name} 的個人照片`}
             width={320}
             height={320}
-            class="h-full w-full origin-center scale-[1.45] object-cover"
+            class="h-full w-full origin-center scale-[1.45] object-cover md:origin-[55%_43%] md:scale-[1.65]"
           />
         </div>
       </div>
@@ -88,14 +89,14 @@ const {
     <div class="mt-24 space-y-20 md:mt-28">
       {education.length > 0 && (
         <Timeline
-          heading="學習背景"
+          heading="Education"
           headingId="home-education"
           entries={education}
         />
       )}
       {experience.length > 0 && (
         <Timeline
-          heading="經歷"
+          heading="Experience"
           headingId="home-experience"
           entries={experience}
         />

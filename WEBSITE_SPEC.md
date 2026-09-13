@@ -136,7 +136,7 @@ in this order:
 1. 主頁面 → `/`
 2. 修課心得 → `/courses`
 3. 活動與團體 → `/activities`
-4. 隨筆 → `/essays`
+4. 隨筆 → `/musings`
 
 There should NOT be a separate `About` navigation item.
 
@@ -230,7 +230,7 @@ The website should ultimately contain these four primary sections:
 ├── activities/
 │   └── 活動與團體文章
 │
-└── essays/
+└── musings/
     └── 隨筆文章
 ```
 
@@ -488,11 +488,11 @@ The Activities index should automatically list available articles.
 
 ---
 
-## 12. Essays
+## 12. Musings
 
 Route:
 
-`/essays`
+`/musings`
 
 Navigation label:
 
@@ -503,12 +503,12 @@ This section is for:
 - Personal writing
 - Reflections
 - Thoughts
-- Longer-form essays
+- Longer-form musings
 - Life records
 
 The long-term goal is for these articles to use Markdown-based content.
 
-The Essays index should automatically list available articles.
+The Musings index should automatically list available articles.
 
 
 ---
@@ -533,7 +533,7 @@ src/
     │   ├── example-1.md
     │   └── example-2.md
     │
-    └── essays/
+    └── musings/
         ├── example-1.md
         └── example-2.md
 ```
@@ -813,7 +813,7 @@ The final primary website structure should focus on:
 - `/`
 - `/courses`
 - `/activities`
-- `/essays`
+- `/musings`
 
 
 ---

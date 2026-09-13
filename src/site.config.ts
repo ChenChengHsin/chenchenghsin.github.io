@@ -9,7 +9,7 @@ export const site = {
   defaultTitle: 'Zn',
 
   // SEO 站点描述（meta description）
-  description: '分享修課心得、活動紀錄與生活隨筆。Course notes, activities, and essays.',
+  description: '分享修課心得、活動紀錄與生活隨筆。Course notes, activities, and musings.',
 
   // ── SEO：分享与链接 ──
   url: 'https://ruijieking.github.io/',            // 站点域名（必须带 https://，SEO/canonical/sitemap 依赖它）
@@ -29,6 +29,6 @@ export const site = {
     { href: '/', label: '主頁面' },
     { href: '/courses', label: '修課心得' },
     { href: '/activities', label: '活動與團體' },
-    { href: '/essays', label: '隨筆' },
+    { href: '/musings', label: '隨筆' },
   ],
 };

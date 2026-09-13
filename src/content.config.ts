@@ -40,10 +40,10 @@ const activities = defineCollection({
   schema: articleSchema,
 });
 
-const essays = defineCollection({
-  loader: glob({ base: './src/content/essays', pattern: '**/*.md' }),
+const musings = defineCollection({
+  loader: glob({ base: './src/content/musings', pattern: '**/*.md' }),
   schema: articleSchema,
 });
 
-export const collections = { blog, talk, courses, activities, essays };
+export const collections = { blog, talk, courses, activities, musings };
 

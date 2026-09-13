@@ -5,7 +5,7 @@
 ## 最短發布流程
 
 1. 在 HackMD 完成文章後，下載 Markdown 檔案。
-2. 依文章分類，把檔案放進 `src/content/courses/`、`src/content/activities/` 或 `src/content/essays/`。
+2. 依文章分類，把檔案放進 `src/content/courses/`、`src/content/activities/` 或 `src/content/musings/`。
 3. 可先複製 `src/content/article-template.md`，再貼入文章正文。
 4. 使用簡短、穩定的英文檔名，例如 `algorithm-notes.md`。
 5. 填寫檔案最上方的 frontmatter。
@@ -19,7 +19,7 @@
 | --- | --- | --- |
 | 修課心得 | `src/content/courses/` | `/courses/algorithm-notes` |
 | 活動與團體 | `src/content/activities/` | `/activities/community-service` |
-| 隨筆 | `src/content/essays/` | `/essays/learning-in-public` |
+| 隨筆 | `src/content/musings/` | `/musings/learning-in-public` |
 
 檔名會成為網址的一部分。例如：
 
@@ -110,7 +110,7 @@ src/assets/articles/
 │   └── algorithm-notes/
 ├── activities/
 │   └── community-service/
-└── essays/
+└── musings/
     └── learning-in-public/
 ```
 

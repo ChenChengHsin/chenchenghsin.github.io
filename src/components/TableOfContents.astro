@@ -4,26 +4,38 @@ import type { MarkdownHeading } from 'astro';
 interface Props {
   headings: MarkdownHeading[];
   labelledBy: string;
+  variant?: 'compact' | 'sidebar';
 }
 
-const { headings, labelledBy } = Astro.props;
+const { headings, labelledBy, variant = 'compact' } = Astro.props;
+const isSidebar = variant === 'sidebar';
 
-const levelStyles = {
-  1: 'pl-2 font-medium text-fg/70',
-  2: 'pl-5 text-fg/55',
-  3: 'pl-8 text-fg/45',
-} as const;
+const levelStyles = isSidebar
+  ? {
+      1: 'pl-2 font-semibold text-fg/85',
+      2: 'pl-5 font-medium text-fg/70',
+      3: 'pl-8 text-fg/55',
+    }
+  : {
+      1: 'pl-2 font-medium text-fg/70',
+      2: 'pl-5 text-fg/55',
+      3: 'pl-8 text-fg/45',
+    };
 ---
 
-<nav aria-labelledby={labelledBy}>
-  <ol class="m-0 flex list-none flex-col gap-1 p-0">
+<nav aria-labelledby={labelledBy} data-article-toc={variant}>
+  <ol class:list={['m-0 flex list-none flex-col p-0', isSidebar ? 'gap-2' : 'gap-1']}>
     {headings.map((heading) => (
       <li class="m-0 p-0">
         <a
           href={`#${heading.slug}`}
+          data-toc-link
+          data-heading-id={heading.slug}
           class:list={[
-            'block min-w-0 break-words rounded-md py-2 pr-2 text-sm leading-snug',
-            'transition-colors hover:text-accent focus-visible:text-accent',
+            'toc-link block min-w-0 break-words rounded-md pr-2 leading-snug',
+            isSidebar ? 'py-2.5 text-base' : 'py-2 text-sm',
+            isSidebar && 'toc-link--sidebar',
+            'transition-colors hover:text-accent focus-visible:text-accent motion-reduce:transition-none',
             levelStyles[heading.depth as keyof typeof levelStyles],
           ]}
         >
@@ -33,3 +45,40 @@ const levelStyles = {
     ))}
   </ol>
 </nav>
+
+<style>
+  .toc-link--sidebar {
+    position: relative;
+  }
+
+  .toc-link--sidebar::before {
+    position: absolute;
+    inset-block: 0.65rem;
+    inset-inline-start: 0;
+    width: 2px;
+    border-radius: 9999px;
+    background: var(--c-accent);
+    content: '';
+    opacity: 0;
+    transform: scaleY(0.45);
+    transition:
+      opacity 150ms ease,
+      transform 150ms ease;
+  }
+
+  .toc-link[aria-current='location'] {
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+
+  .toc-link--sidebar[aria-current='location']::before {
+    opacity: 0.8;
+    transform: scaleY(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toc-link--sidebar::before {
+      transition: none;
+    }
+  }
+</style>
