@@ -44,20 +44,20 @@ const hasTableOfContents = tocHeadings.length > 0;
 >
   <div
     class:list={[
-      'mx-auto px-6 pt-24 pb-16',
+      'mx-auto px-4 pt-16 pb-11',
       hasTableOfContents
-        ? 'max-w-[71rem] min-[82rem]:grid min-[82rem]:max-w-[98rem] min-[82rem]:grid-cols-[minmax(0,1fr)_19rem] min-[82rem]:items-start min-[82rem]:gap-12 min-[104rem]:max-w-[113rem] min-[104rem]:grid-cols-[minmax(0,1fr)_23rem] min-[104rem]:gap-[4.5rem]'
-        : 'max-w-[82rem]',
+        ? 'max-w-[48rem] min-[82rem]:grid min-[82rem]:max-w-[76rem] min-[82rem]:grid-cols-[minmax(0,1fr)_15.5rem] min-[82rem]:items-start min-[82rem]:gap-12'
+        : 'max-w-[55rem]',
     ]}
   >
     <div class="min-w-0">
-      <div class="min-[82rem]:-ml-6">
+      <div class="min-[82rem]:-ml-4">
         <ReadFrostedGlass>
-          <div class="min-[82rem]:ml-6">
+          <div class="min-[82rem]:ml-4">
             <div
               class:list={[
                 hasTableOfContents &&
-                  'min-[104rem]:mx-auto min-[104rem]:max-w-[68rem]',
+                  'min-[82rem]:mx-auto min-[82rem]:max-w-[46rem]',
               ]}
             >
               <a
@@ -67,14 +67,14 @@ const hasTableOfContents = tocHeadings.length > 0;
                 ← 回到{section.title}
               </a>
 
-              <header class="mt-6 pb-8 border-b border-fg/10">
-                <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-3">
+              <header class="mt-4 pb-5 border-b border-fg/10">
+                <p class="text-xs tracking-[0.3em] uppercase text-fg/30 mb-2">
                   {section.eyebrow}
                 </p>
                 <h1 class="text-4xl font-bold text-fg leading-tight">{title}</h1>
-                <p class="mt-4 text-lg leading-relaxed text-fg/55">{description}</p>
+                <p class="mt-3 text-lg leading-relaxed text-fg/55">{description}</p>
 
-                <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                <div class="mt-3.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
                   <time datetime={toDateTime(date)} class="text-sm text-fg/40 font-mono">
                     {formatArticleDate(date)}
                   </time>
@@ -84,7 +84,7 @@ const hasTableOfContents = tocHeadings.length > 0;
                     </span>
                   )}
                   {tags && tags.length > 0 && (
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap gap-1.5">
                       {tags.map((tag) => (
                         <span class="text-sm text-fg/40">#{tag}</span>
                       ))}
@@ -94,14 +94,14 @@ const hasTableOfContents = tocHeadings.length > 0;
               </header>
 
               {hasTableOfContents && (
-                <details class="mt-8 rounded-xl border border-fg/10 bg-bg/25 px-4 py-3 min-[82rem]:hidden">
+                <details class="mt-5 rounded-xl border border-fg/10 bg-bg/25 px-3 py-2.5 min-[82rem]:hidden">
                   <summary
                     id="article-toc-mobile-label"
                     class="cursor-pointer font-medium text-fg/70 marker:text-fg/40"
                   >
                     文章目錄
                   </summary>
-                  <div class="mt-3 border-l border-fg/10 pl-2">
+                  <div class="mt-2 border-l border-fg/10 pl-2">
                     <TableOfContents
                       headings={tocHeadings}
                       labelledBy="article-toc-mobile-label"
@@ -112,20 +112,20 @@ const hasTableOfContents = tocHeadings.length > 0;
 
               <div
                 id="article-content"
-                class="mt-8 max-w-none overflow-x-auto prose prose-neutral dark:prose-invert text-lg
-                       prose-p:my-5 prose-p:leading-relaxed prose-p:text-fg/85
-                       prose-headings:scroll-mt-40 prose-headings:text-fg prose-headings:font-semibold
-                       prose-headings:mt-10 prose-headings:mb-5
+                class="mt-5 max-w-none overflow-x-auto prose prose-neutral dark:prose-invert text-lg
+                       prose-p:my-3.5 prose-p:leading-relaxed prose-p:text-fg/85
+                       prose-headings:scroll-mt-28 prose-headings:text-fg prose-headings:font-semibold
+                       prose-headings:mt-7 prose-headings:mb-3.5
                        prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
                        prose-a:text-accent prose-a:no-underline hover:prose-a:underline
                        prose-code:text-base prose-code:font-normal prose-code:text-accent
-                       prose-code:bg-fg/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-                       prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-xl
+                       prose-code:bg-fg/5 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                       prose-pre:my-5 prose-pre:overflow-x-auto prose-pre:rounded-xl
                        prose-pre:border prose-pre:border-fg/10 prose-pre:bg-fg/5
-                       prose-img:my-8 prose-img:max-w-full prose-img:rounded-xl
-                       prose-li:my-2 prose-li:leading-relaxed prose-li:text-fg/85
+                       prose-img:my-5 prose-img:max-w-full prose-img:rounded-xl
+                       prose-li:my-1.5 prose-li:leading-relaxed prose-li:text-fg/85
                        prose-blockquote:rounded-r-lg prose-blockquote:border-l-accent prose-blockquote:bg-fg/3
-                       prose-hr:my-10 prose-hr:border-fg/10
+                       prose-hr:my-7 prose-hr:border-fg/10
                        prose-strong:text-fg prose-strong:font-semibold
                        prose-table:border-fg/10"
               >
@@ -139,14 +139,14 @@ const hasTableOfContents = tocHeadings.length > 0;
 
     {hasTableOfContents && (
       <aside
-        class="sticky top-40 hidden max-h-[calc(100vh-12rem)] min-w-0 flex-col
-               rounded-r-xl border-l border-fg/15 bg-bg/30 py-5 pr-4 pl-6
+        class="sticky top-28 hidden max-h-[calc(100vh-8rem)] min-w-0 flex-col
+               rounded-r-xl border-l border-fg/15 bg-bg/30 py-3.5 pr-3 pl-4
                backdrop-blur-md min-[82rem]:flex"
         aria-labelledby="article-toc-desktop-label"
       >
         <p
           id="article-toc-desktop-label"
-          class="mb-6 text-sm font-semibold tracking-[0.12em] text-fg/70"
+          class="mb-4 text-sm font-semibold tracking-[0.12em] text-fg/70"
         >
           文章目錄
         </p>
@@ -302,7 +302,7 @@ const hasTableOfContents = tocHeadings.length > 0;
       ) || 16;
       activationBandHeight = 2;
       activationY = Math.min(
-        rootFontSize * 10,
+        rootFontSize * 7,
         Math.max(1, window.innerHeight - activationBandHeight),
       );
       const bottomMargin = Math.max(
@@ -325,7 +325,7 @@ const hasTableOfContents = tocHeadings.length > 0;
     function isDocumentAtEnd(): boolean {
       const root = document.documentElement;
       const maximumScroll = root.scrollHeight - window.innerHeight;
-      return maximumScroll > 2 && window.scrollY > 0 && window.scrollY >= maximumScroll - 24;
+      return maximumScroll > 2 && window.scrollY > 0 && window.scrollY >= maximumScroll - 16;
     }
 
     function handleDocumentScroll(): void {

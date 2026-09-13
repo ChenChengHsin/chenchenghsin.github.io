@@ -79,20 +79,20 @@ function navClass(href: string) {
     <ThemeWallpaper />
 
     <!-- 全寬導覽列：logo 在最左側，導覽和主題控制在最右側，中間保留空間 -->
-    <header class:list={['sticky top-4 z-50', !showSiteChrome && 'invisible pointer-events-none']}>
-      <div class="flex items-center justify-between w-full px-20 py-8
+    <header class:list={['sticky top-4 z-50 lg:top-3', !showSiteChrome && 'invisible pointer-events-none']}>
+      <div class="flex items-center justify-between w-full px-14 py-5
                   bg-bg/15 backdrop-blur-2xl
                   shadow-lg shadow-black/5
                   text-lg
                   max-md:gap-3 max-md:px-4 max-md:py-3 max-md:text-sm">
-        <a href="/" class:list={['px-3 py-1.5 max-md:px-2.5 max-md:py-1 rounded-full transition-all duration-200', navClass('/')]}>{site.name}</a>
+        <a href="/" class:list={['px-2 py-1 max-md:px-2.5 max-md:py-1 rounded-full transition-all duration-200', navClass('/')]}>{site.name}</a>
 
         <!-- 右側：桌面導覽 + 主題控制（整體靠右） -->
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-0.5">
           <!-- 桌面導覽（lg 以上橫向顯示，僅含導覽連結） -->
-          <nav class="hidden lg:flex items-center gap-3">
+          <nav class="hidden lg:flex items-center gap-2">
             {site.nav.map((item) => (
-              <a href={item.href} class:list={['px-3 py-1.5 rounded-full transition-all duration-200', navClass(item.href)]}>{item.label}</a>
+              <a href={item.href} class:list={['px-2 py-1 rounded-full transition-all duration-200', navClass(item.href)]}>{item.label}</a>
             ))}
           </nav>
           <ThemeToggle />
@@ -115,7 +115,7 @@ function navClass(href: string) {
     <div
       id="mobile-menu"
       class:list={[
-        `lg:hidden fixed top-24 md:top-32 right-4 z-[60] w-72 max-w-[calc(100vw-2rem)]
+        `lg:hidden fixed top-20 md:top-24 right-4 z-[60] w-72 max-w-[calc(100vw-2rem)]
          bg-bg/85 backdrop-blur-xl
          rounded-2xl shadow-xl shadow-black/10
          ring-1 ring-fg/10
@@ -139,7 +139,7 @@ function navClass(href: string) {
     <main class="flex-1">
       <slot />
     </main>
-    <footer class:list={['px-8 py-6 border-t border-fg/10 text-sm opacity-60', !showSiteChrome && 'invisible']}>
+    <footer class:list={['px-6 py-5 border-t border-fg/10 text-sm opacity-60 lg:px-5 lg:py-4', !showSiteChrome && 'invisible']}>
       {site.name}
     </footer>
 

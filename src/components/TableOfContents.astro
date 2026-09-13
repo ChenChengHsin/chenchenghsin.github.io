@@ -12,9 +12,9 @@ const isSidebar = variant === 'sidebar';
 
 const levelStyles = isSidebar
   ? {
-      1: 'pl-2 font-semibold text-fg/85',
-      2: 'pl-5 font-medium text-fg/70',
-      3: 'pl-8 text-fg/55',
+      1: 'pl-1.5 font-semibold text-fg/85',
+      2: 'pl-3.5 font-medium text-fg/70',
+      3: 'pl-5 text-fg/55',
     }
   : {
       1: 'pl-2 font-medium text-fg/70',
@@ -24,7 +24,7 @@ const levelStyles = isSidebar
 ---
 
 <nav aria-labelledby={labelledBy} data-article-toc={variant}>
-  <ol class:list={['m-0 flex list-none flex-col p-0', isSidebar ? 'gap-2' : 'gap-1']}>
+  <ol class:list={['m-0 flex list-none flex-col p-0', isSidebar ? 'gap-1.5' : 'gap-1']}>
     {headings.map((heading) => (
       <li class="m-0 p-0">
         <a
@@ -32,8 +32,8 @@ const levelStyles = isSidebar
           data-toc-link
           data-heading-id={heading.slug}
           class:list={[
-            'toc-link block min-w-0 break-words rounded-md pr-2 leading-snug',
-            isSidebar ? 'py-2.5 text-base' : 'py-2 text-sm',
+            'toc-link block min-w-0 break-words rounded-md leading-snug',
+            isSidebar ? 'py-1.5 pr-1.5 text-base' : 'py-2 pr-2 text-sm',
             isSidebar && 'toc-link--sidebar',
             'transition-colors hover:text-accent focus-visible:text-accent motion-reduce:transition-none',
             levelStyles[heading.depth as keyof typeof levelStyles],
@@ -53,7 +53,7 @@ const levelStyles = isSidebar
 
   .toc-link--sidebar::before {
     position: absolute;
-    inset-block: 0.65rem;
+    inset-block: 0.45rem;
     inset-inline-start: 0;
     width: 2px;
     border-radius: 9999px;
