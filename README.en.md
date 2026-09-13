@@ -12,7 +12,7 @@ A modern, minimal and good-looking personal blog template built with **Astro 7**
 
 > **English** | [简体中文](./README.md)
 
-> 🌐 Live demo: <https://ruijieking.github.io>
+> 🌐 Live demo: <https://chenchenghsin.github.io/>
 
 ## 📸 Preview
 

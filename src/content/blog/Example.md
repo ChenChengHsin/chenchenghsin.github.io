@@ -16,7 +16,7 @@ A modern, feature-rich personal blog template built with **Astro 7** and **Tailw
 
 > **English** | [简体中文](./README.zh-CN.md)
 
-> 🌐 Live demo: <https://ruijieking.github.io>
+> 🌐 Live demo: <https://chenchenghsin.github.io/>
 
 ## ✨ Features
 
