@@ -63,7 +63,7 @@ experience:
 
 # Zn
 
-歡迎來到 Zn 的小天地！
+Zn的個人網站！
 
 ## About
 
