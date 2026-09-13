@@ -12,7 +12,7 @@ export const site = {
   description: '分享修課心得、活動紀錄與生活隨筆。Course notes, activities, and musings.',
 
   // ── SEO：分享与链接 ──
-  url: 'https://chenchenghsin.github.io/',         // 站点域名（必须带 https://，SEO/canonical/sitemap 依赖它）
+  url: 'https://zn.csie.org/',                     // 站点域名（必须带 https://，SEO/canonical/sitemap 依赖它）
   ogImage: '/og.png',                           // 社交分享预览图（public/og.png，建议 1200×630）
   ogSiteName: 'Zn',                              // 分享卡片上显示的站点名
 
