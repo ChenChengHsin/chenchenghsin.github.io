@@ -34,6 +34,33 @@ body {
   --c-accent: #60a5fa;
 }
 
+[data-theme="dark"] #article-content tbody td {
+  color: color-mix(in oklab, var(--c-fg) 85%, transparent);
+}
+
+[data-theme="dark"] #article-content .spoiler-white {
+  background-color: color-mix(in oklab, var(--c-fg) 28%, var(--c-bg));
+}
+
+[data-theme="dark"]
+  #article-content
+  .spoiler:is(:hover, :focus, :active, .active) {
+  color: var(--c-fg);
+}
+
+[data-theme="dark"] #article-content details {
+  color: color-mix(in oklab, var(--c-fg) 85%, transparent);
+  background-color: color-mix(in oklab, var(--c-fg) 22%, var(--c-bg));
+  border: 1px solid color-mix(in oklab, var(--c-fg) 18%, transparent);
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+}
+
+[data-theme="dark"] #article-content details > summary {
+  color: var(--c-fg);
+  cursor: pointer;
+}
+
 /* 隐藏横向滚动条（用于移动端可滚动的导航栏），桌面端不受影响 */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
