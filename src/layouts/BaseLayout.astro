@@ -46,11 +46,12 @@ function navClass(href: string) {
     <link rel="canonical" href={new URL(Astro.url.pathname, siteUrl).href} />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
    
-    <link rel="icon" type="image/png" href="/profile-favicon.png" sizes="32x32" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/png" href="/profile-favicon.png" sizes="96x96" />
     <title>{pageTitle}</title>
 
   <script is:inline>
-  // 網頁圖示使用 public/profile-favicon.png。
+  // 網頁圖示使用 public/favicon.ico 與 public/profile-favicon.png。
  
  
   // ===== 第一層：首屏防閃（FOUC）=====
