@@ -81,7 +81,6 @@ Zn的個人網站！
 
 ## 想說的話
 
-想說什麼都可以說\
+想說什麼都可以說！\
 不管是網站有什麼問題、看完各種文章想給我反饋、或是單純想找我聊聊\
-都很歡迎來找我！
-https://forms.gle/WG5HZHXF5ku1ZFHo7
+都很歡迎填表單告訴我：https://forms.gle/WG5HZHXF5ku1ZFHo7
