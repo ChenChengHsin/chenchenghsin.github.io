@@ -19,7 +19,7 @@ export const site = {
   // 作者信息
   author: {
     name: 'Zn',
-    github: 'ruijieking',
+    github: '',
     hackmd: 'https://hackmd.io/@k2Ktk2THQ42WBv-U3SNlDA',
     location: '',
   },
