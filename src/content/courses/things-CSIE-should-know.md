@@ -98,7 +98,7 @@ draft: False
 
 如果你還在用word的話<span class="spoiler spoiler-white" tabindex="0">應該沒有人是用google document的吧</span>，相信我你用過以下的東西你就回不去了
 
-這邊推薦三個比較主流的 Document Editor\
+這邊推薦三個比較主流的 Document Editor
 - Hack md：是寫Markdown語法非常好上手，想要公開發表筆記或是轉成HTML都很方便，不過如果沒有付錢的話是無法匯出成pdf的，有匯出md的需求的話可以下載Obsidian，也是挺不錯用的。
 
 - LaTeX：應該是其他理工學系最多人使用的Document Editor，稍微不太好上手，不過如果有模板的話，也是無痛入手一個高排版品質還有能處理複雜數學公式的編輯器。
@@ -113,7 +113,7 @@ draft: False
 
 ## Git / GitHub
 
-重要程度跟樓上差不多，就是非常重要。\
+重要程度跟樓上差不多，就是非常重要。
 
 Git是一套安裝在電腦裡的版本控制軟體，你可以想像當你有個版本其實已經可以AC只是你想追求一下其他地方，於是你爆改了一大堆程式結果CE，這時候版本控制就很重要了，有Git你就可以隨時退回原本的版本，不用一直後悔剛剛自己把Code都改壞了。
 
