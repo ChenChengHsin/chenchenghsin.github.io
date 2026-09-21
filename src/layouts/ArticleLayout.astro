@@ -46,7 +46,7 @@ const hasTableOfContents = tocHeadings.length > 0;
     class:list={[
       'mx-auto px-4 pt-16 pb-11',
       hasTableOfContents
-        ? 'max-w-[48rem] min-[82rem]:grid min-[82rem]:max-w-[76rem] min-[82rem]:grid-cols-[minmax(0,1fr)_15.5rem] min-[82rem]:items-start min-[82rem]:gap-12'
+        ? 'max-w-[48rem] min-[56rem]:grid min-[56rem]:max-w-[76rem] min-[56rem]:grid-cols-[minmax(0,1fr)_13rem] min-[56rem]:items-start min-[56rem]:gap-6 min-[82rem]:grid-cols-[minmax(0,1fr)_15.5rem] min-[82rem]:gap-12'
         : 'max-w-[55rem]',
     ]}
   >
@@ -57,7 +57,7 @@ const hasTableOfContents = tocHeadings.length > 0;
             <div
               class:list={[
                 hasTableOfContents &&
-                  'min-[82rem]:mx-auto min-[82rem]:max-w-[46rem]',
+                  'min-[56rem]:mx-auto min-[56rem]:max-w-[46rem]',
               ]}
             >
               <a
@@ -93,23 +93,6 @@ const hasTableOfContents = tocHeadings.length > 0;
                 </div>
               </header>
 
-              {hasTableOfContents && (
-                <details class="mt-5 rounded-xl border border-fg/10 bg-bg/25 px-3 py-2.5 min-[82rem]:hidden">
-                  <summary
-                    id="article-toc-mobile-label"
-                    class="cursor-pointer font-medium text-fg/70 marker:text-fg/40"
-                  >
-                    文章目錄
-                  </summary>
-                  <div class="mt-2 border-l border-fg/10 pl-2">
-                    <TableOfContents
-                      headings={tocHeadings}
-                      labelledBy="article-toc-mobile-label"
-                    />
-                  </div>
-                </details>
-              )}
-
               <div
                 id="article-content"
                 class="mt-5 max-w-none overflow-x-auto prose prose-neutral dark:prose-invert text-lg
@@ -139,27 +122,86 @@ const hasTableOfContents = tocHeadings.length > 0;
 
     {hasTableOfContents && (
       <aside
-        class="sticky top-28 hidden max-h-[calc(100vh-8rem)] min-w-0 flex-col
+        id="article-toc-panel"
+        class="article-toc-panel sticky top-28 flex max-h-[calc(100vh-8rem)] min-w-0 flex-col
                rounded-r-xl border-l border-fg/15 bg-bg/30 py-3.5 pr-3 pl-4
-               backdrop-blur-md min-[82rem]:flex"
-        aria-labelledby="article-toc-desktop-label"
+               backdrop-blur-md"
+        aria-labelledby="article-toc-label"
       >
-        <p
-          id="article-toc-desktop-label"
-          class="mb-4 text-sm font-semibold tracking-[0.12em] text-fg/70"
-        >
-          文章目錄
-        </p>
-        <div class="min-h-0 flex-1 overflow-y-auto pr-1 no-scrollbar" data-toc-scroll>
+        <div class="mb-4 flex shrink-0 items-center justify-between gap-3">
+          <p id="article-toc-label" class="text-sm font-semibold tracking-[0.12em] text-fg/70">
+            文章目錄
+          </p>
+          <button
+            type="button"
+            data-toc-close
+            class="toc-control -mr-1 flex size-11 items-center justify-center rounded-full hover:bg-fg/10 min-[56rem]:hidden"
+            aria-label="關閉文章目錄"
+          >
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m6 6 12 12M6 18 18 6" />
+            </svg>
+          </button>
+        </div>
+        <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 no-scrollbar" data-toc-scroll>
           <TableOfContents
             headings={tocHeadings}
-            labelledBy="article-toc-desktop-label"
+            labelledBy="article-toc-label"
             variant="sidebar"
           />
         </div>
       </aside>
     )}
   </div>
+
+  {hasTableOfContents && (
+    <button
+      id="article-toc-toggle"
+      type="button"
+      class="toc-control article-toc-toggle fixed z-40 flex size-12 items-center justify-center rounded-full border border-fg/15 bg-bg/90 text-fg/85 shadow-lg backdrop-blur-md hover:text-accent min-[56rem]:hidden"
+      aria-label="開啟文章目錄"
+      aria-controls="article-toc-panel"
+      aria-expanded="false"
+    >
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" />
+      </svg>
+    </button>
+  )}
+
+  <style>
+    .toc-control:focus-visible {
+      outline: 2px solid var(--c-accent);
+      outline-offset: 3px;
+    }
+
+    .article-toc-toggle {
+      right: calc(1rem + env(safe-area-inset-right, 0px));
+      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Keep the floating panel outside the article's backdrop-filter container. */
+    @media (width < 56rem) {
+      .article-toc-panel {
+        position: fixed;
+        z-index: 40;
+        top: auto;
+        right: calc(1rem + env(safe-area-inset-right, 0px));
+        bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+        width: min(22rem, calc(100% - 2rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+        max-height: min(65dvh, calc(100dvh - 10rem - env(safe-area-inset-bottom, 0px)));
+        padding: 0.75rem 1rem;
+        border: 1px solid color-mix(in oklab, var(--c-fg) 15%, transparent);
+        border-radius: 1rem;
+        background: color-mix(in oklab, var(--c-bg) 95%, transparent);
+        box-shadow: 0 10px 30px rgb(0 0 0 / 0.15);
+      }
+
+      .article-toc-panel:not([data-open]) {
+        display: none;
+      }
+    }
+  </style>
 
   <style is:global>
     #article-content blockquote {
@@ -214,6 +256,11 @@ const hasTableOfContents = tocHeadings.length > 0;
     if (articleHeadings.length === 0) return;
 
     const tocScroller = document.querySelector<HTMLElement>('[data-toc-scroll]');
+    const tocPanel = document.getElementById('article-toc-panel');
+    const tocToggle = document.getElementById('article-toc-toggle');
+    const tocClose = tocPanel?.querySelector<HTMLButtonElement>('[data-toc-close]');
+    // Keep this in sync with the layout and floating-panel breakpoint above.
+    const sidebarMedia = window.matchMedia('(min-width: 56rem)');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let activeHeadingId = '';
     let activationY = 0;
@@ -222,6 +269,80 @@ const hasTableOfContents = tocHeadings.length > 0;
     let updateFrame = 0;
     let resizeFrame = 0;
     let headingObserver: IntersectionObserver | undefined;
+
+    function setMobileTocOpen(open: boolean, restoreFocus = true): void {
+      if (!tocPanel || !tocToggle) return;
+
+      const isOpen = open && !sidebarMedia.matches;
+      tocPanel.toggleAttribute('data-open', isOpen);
+      tocToggle.setAttribute('aria-expanded', String(isOpen));
+      tocToggle.setAttribute('aria-label', isOpen ? '關閉文章目錄' : '開啟文章目錄');
+
+      if (isOpen) {
+        centerActiveTocLink(activeHeadingId, false);
+        const currentLink = tocPanel.querySelector<HTMLAnchorElement>('[aria-current="location"]');
+        (currentLink ?? tocClose)?.focus({ preventScroll: true });
+      } else if (restoreFocus) {
+        tocToggle.focus({ preventScroll: true });
+      }
+    }
+
+    function handleTocToggle(): void {
+      setMobileTocOpen(!tocPanel?.hasAttribute('data-open'));
+    }
+
+    function handleTocClose(): void {
+      setMobileTocOpen(false);
+    }
+
+    function handleTocSelection(event: MouseEvent): void {
+      if (sidebarMedia.matches || event.defaultPrevented || event.button !== 0 ||
+          event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = event.target instanceof Element
+        ? event.target.closest<HTMLAnchorElement>('[data-toc-link]')
+        : null;
+      if (!link) return;
+
+      setMobileTocOpen(false, false);
+      const heading = document.getElementById(link.dataset.headingId ?? '');
+      if (heading) {
+        // Preserve native anchor navigation while moving focus out of the hidden panel.
+        if (!heading.hasAttribute('tabindex')) {
+          heading.setAttribute('tabindex', '-1');
+          heading.addEventListener('blur', () => heading.removeAttribute('tabindex'), { once: true });
+        }
+        heading.focus({ preventScroll: true });
+      }
+    }
+
+    function handleTocEscape(event: KeyboardEvent): void {
+      if (event.key === 'Escape' && tocPanel?.hasAttribute('data-open')) {
+        event.preventDefault();
+        setMobileTocOpen(false);
+      }
+    }
+
+    function handleTocOutside(event: Event): void {
+      if (!tocPanel?.hasAttribute('data-open') || !(event.target instanceof Node)) return;
+      if (!tocPanel.contains(event.target) && !tocToggle?.contains(event.target)) {
+        setMobileTocOpen(false, event.type === 'pointerdown' && tocPanel.contains(document.activeElement));
+      }
+    }
+
+    function handleTocModeChange(): void {
+      const focusWasInPanel = tocPanel?.contains(document.activeElement);
+      const focusWasOnControl = document.activeElement === tocToggle || document.activeElement === tocClose;
+      setMobileTocOpen(false, false);
+
+      if (sidebarMedia.matches) {
+        centerActiveTocLink(activeHeadingId, false);
+        if (focusWasOnControl) {
+          tocPanel?.querySelector<HTMLAnchorElement>('[aria-current="location"]')?.focus({ preventScroll: true });
+        }
+      } else if (focusWasInPanel) {
+        tocToggle?.focus({ preventScroll: true });
+      }
+    }
 
     function centerActiveTocLink(headingId: string, animate: boolean): void {
       if (!tocScroller || tocScroller.clientHeight === 0) return;
@@ -358,6 +479,13 @@ const hasTableOfContents = tocHeadings.length > 0;
     );
 
     window.addEventListener('hashchange', handleHashChange);
+    tocToggle?.addEventListener('click', handleTocToggle);
+    tocClose?.addEventListener('click', handleTocClose);
+    tocPanel?.addEventListener('click', handleTocSelection);
+    document.addEventListener('keydown', handleTocEscape);
+    document.addEventListener('pointerdown', handleTocOutside);
+    document.addEventListener('focusin', handleTocOutside);
+    sidebarMedia.addEventListener('change', handleTocModeChange);
 
     if ('IntersectionObserver' in window) {
       createObservers();
@@ -370,6 +498,13 @@ const hasTableOfContents = tocHeadings.length > 0;
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleDocumentScroll);
       window.removeEventListener('hashchange', handleHashChange);
+      tocToggle?.removeEventListener('click', handleTocToggle);
+      tocClose?.removeEventListener('click', handleTocClose);
+      tocPanel?.removeEventListener('click', handleTocSelection);
+      document.removeEventListener('keydown', handleTocEscape);
+      document.removeEventListener('pointerdown', handleTocOutside);
+      document.removeEventListener('focusin', handleTocOutside);
+      sidebarMedia.removeEventListener('change', handleTocModeChange);
       if (updateFrame) window.cancelAnimationFrame(updateFrame);
       if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
     };
