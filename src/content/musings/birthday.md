@@ -2,7 +2,7 @@
 title: 生日
 date: 2026-10-04
 description: 二十歲啦！
-draft: True
+draft: False
 ---
 
 好久沒寫寫隨筆了，趁著生日抒發一下自己近期的想法吧！\
